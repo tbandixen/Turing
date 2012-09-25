@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <appSettings>
+        <add key="Q" value="{q0,q1,q2,q3,q4,q5,q6,q7,qF}"/>
+        <add key="E" value="{0,1,B,x}"/>
+        <add key="T" value="{0,1,B}"/>
+        <!--
+Algorithmus:
+q0,q1	Load first number into T1
+q2		Load second number into T2
+		Set T3 to zero
+q4		Shift T1 right one bit, if condition is not set, jump to q5
+q6      Add T2 into T3
+q5      If T1 is "B", jump to qF
+        Shift T2 left one bit, jump to q4
+qF      Store T3 as answer
+
+q3      Move T1 to beginning
+q7      Move T2, T3 to beginning
+-->
+        <add key="Fn" value="
+{(q0, 0BBB) = (q0, BBBB, RNNN)
+,(q0, 1BBB) = (q1, 1BBB, RNNN)
+
+,(q1, 1BBB) = (q1, 1BBB, RNNN)
+,(q1, 0BBB) = (q1, 0BBB, RNNN)
+,(q1, xBBB) = (q2, BBBB, RNNN)
+
+,(q2, 0BBB) = (q2, B0BB, RRNN)
+,(q2, 1BBB) = (q2, B1BB, RRNN)
+,(q2, BBBB) = (q3, BBBB, LNNN)
+
+,(q3, BBBB) = (q3, BBBB, LNNN)
+,(q3, 0BBB) = (q4, 0BBB, NNNN)
+,(q3, 1BBB) = (q4, 1BBB, NNNN)
+
+,(q4, 1BBB) = (q6, BBBB, NLLN)
+,(q4, 0BBB) = (q5, BBBB, LNNN)
+
+,(q5, BBBB) = (qF, BBBB, NNNN)
+
+,(q5, 0BBB) = (q4, 00BB, NRNN)
+,(q5, 1BBB) = (q4, 10BB, NRNN)
+
+,(q6, B0BB) = (q6, B00B, NLLN)
+,(q6, B00B) = (q6, B00B, NLLN)
+,(q6, B1BB) = (q6, B11B, NLLN)
+,(q6, B11B) = (q6, B101, NLLN)
+,(q6, B10B) = (q6, B11B, NLLN)
+,(q6, B01B) = (q6, B01B, NLLN)
+
+,(q6, B0B1) = (q6, B01B, NLLN)
+,(q6, B1B1) = (q6, B101, NLLN)
+,(q6, B001) = (q6, B01B, NLLN)
+,(q6, B011) = (q6, B001, NLLN)
+,(q6, B111) = (q6, B111, NLLN)
+,(q6, B101) = (q6, B101, NLLN)
+,(q6, BBB1) = (q6, BB1B, NNLN)
+
+,(q6, BBBB) = (q7, BBBB, NRRN)
+
+,(q7, B00B) = (q7, B00B, NRRN)
+,(q7, B01B) = (q7, B01B, NRRN)
+,(q7, B11B) = (q7, B11B, NRRN)
+,(q7, B10B) = (q7, B10B, NRRN)
+
+,(q7, B0BB) = (q7, B0BB, NRNN)
+,(q7, B1BB) = (q7, B1BB, NRNN)
+,(q7, BB0B) = (q7, BB0B, NNRN)
+,(q7, BB1B) = (q7, BB1B, NNRN)
+,(q7, BBBB) = (q5, BBBB, LNNN)
+}
+             "/>
+
+        <add key="S" value="q0"/>
+        <add key="F" value="{qF}"/>
+
+        <add key="OutputTape" value="3"/>
+        <add key="VisibleBandSize" value="31"/>
+    </appSettings>
+</configuration>
